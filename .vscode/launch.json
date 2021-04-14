@@ -1,0 +1,31 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/DS.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "interface": "swd",
+            "servertype": "openocd",
+            "configFiles": ["./openocd.cfg"],
+            "preLaunchTask": "Build",
+            "postDebugTask": "Reset",
+            "runToMain": true,
+            "swoConfig": {                  //SWO 参考 https://christopherjmcclellan.wordpress.com/2019/12/31/debugging-rust-cortex-m-with-vs-code-take-2/
+                "enabled": true,            //启用SWO解码
+                "cpuFrequency": 0,          //目标CPU频率Hz 0 自适应
+                "swoFrequency": 0,          //SWO频率Hz   0自适应
+                "source": "probe",          //SWO数据源 参考https://lonesometraveler.github.io/2020/03/27/debug.html
+                "decoders": [               //SWO解码器配置
+                    { "label": "ITM", "port": 0 }    //ITM标签   端口号0-31
+                ]
+            }
+
+        }
+    ]
+}
